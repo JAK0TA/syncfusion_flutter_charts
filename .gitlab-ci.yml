@@ -1,0 +1,25 @@
+stages:
+  - publish
+
+.prepare:
+  image: registry.jakota.dev/jakota/root/docker-images/dart-package-cloner:master
+  stage: publish
+  before_script:
+    - export GITLAB_REPO_URL=jakota.dev/jakota/intern/dart_packages/syncfusion_flutter_charts.git
+    - export GITLAB_USERNAME=dependabot_jdg
+    - export GITLAB_PERSONAL_ACCESS_TOKEN=glpat-f8hKgxLDr89xA6-iUg3d
+    - export GIT_USERNAME="Dart Sync"
+    - export GIT_EMAIL=dart_sync@jakota.de
+    - export GIT_BRANCH_NAME=main
+    - export GIT_BRANCH_NAME_REBASE=jakota
+    - export PACKAGE_NAME=syncfusion_flutter_charts
+
+publish:main:
+  extends: .prepare
+  script:
+    - ls -la
+    - cd /
+    - ls -la
+    - /app/copy_dart_package.sh
+  only:
+    - main
